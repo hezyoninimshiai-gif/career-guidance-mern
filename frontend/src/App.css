@@ -16,11 +16,12 @@ background:white;
 padding:25px;
 border-radius:10px;
 box-shadow:0 4px 10px rgba(0,0,0,0.1);
-transition:0.3s;
+transition: all 0.3s ease;
 }
 
 .path-card:hover{
-transform:translateY(-5px);
+transform:translateY(-6px);
+box-shadow:0 10px 20px rgba(0,0,0,0.15);
 }
 
 .path-card h3{
