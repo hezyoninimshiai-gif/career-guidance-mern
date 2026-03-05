@@ -1,8 +1,11 @@
+import Hero from "./components/Hero"
+import Dashboard from "./pages/Dashboard"
+
 function App() {
   return (
     <div>
-      <h1>Career Guidance Platform</h1>
-      <p>Frontend is working!</p>
+      <Hero/>
+      <Dashboard/>
     </div>
   );
 }
