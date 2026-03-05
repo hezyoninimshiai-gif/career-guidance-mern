@@ -1,11 +1,10 @@
-import Hero from "./components/Hero"
-import Dashboard from "./pages/Dashboard"
+import React from "react";
+import HeroSection from "./components/HeroSection";
 
 function App() {
   return (
     <div>
-      <Hero/>
-      <Dashboard/>
+      <HeroSection />
     </div>
   );
 }

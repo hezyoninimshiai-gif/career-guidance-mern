@@ -1,0 +1,39 @@
+.hero-container {
+  text-align: center;
+  padding: 120px 20px;
+  background: #f4f7fc;
+}
+
+.hero-container h1 {
+  font-size: 48px;
+  color: #1f2a44;
+}
+
+.hero-container p {
+  font-size: 18px;
+  margin-top: 10px;
+  color: #555;
+}
+
+.hero-buttons {
+  margin-top: 30px;
+}
+
+.explore-btn {
+  padding: 12px 25px;
+  margin-right: 10px;
+  border: none;
+  background: #3b82f6;
+  color: white;
+  font-size: 16px;
+  border-radius: 6px;
+}
+
+.guide-btn {
+  padding: 12px 25px;
+  border: 2px solid #3b82f6;
+  background: transparent;
+  color: #3b82f6;
+  font-size: 16px;
+  border-radius: 6px;
+}
