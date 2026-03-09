@@ -19,7 +19,12 @@ function Navbar() {
         <a href="/about" style={{color:"white",marginRight:"20px"}}>About</a>
         <a href="/contact" style={{color:"white"}}>Contact</a>
       </div>
+      <div className="auth-buttons">
+        <button>Login</button>
+        <button>Register</button>
+        </div>
     </div>
+    
   );
 }
 

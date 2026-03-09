@@ -1,65 +1,56 @@
 import React from "react";
 import "../App.css";
+import { Link } from "react-router-dom";
+import "./CareerPaths.css";
+import { motion } from "framer-motion";
 
-function CareerPaths() {
-  return (
-    <div className="paths-container">
+function CareerPaths(){
 
-      <h2>Explore Career Paths</h2>
-
-      <div className="paths-grid">
-<a href="/foundation">
-  <div className="path-card">
-    <h3>10th Foundation</h3>
-    <p>Explore streams and future paths after 10th.</p>
-  </div>
-</a>
-
-<a href="/mpc">
-  <div className="path-card">
+return(
+<div className="career-container">
+<h2>Explore Career Paths</h2>
+<div className="career-grid">
+<motion.div className="career-card" whileHover={{scale:1.05}}>
     <h3>MPC</h3>
-    <p>Engineering, Technology, Research careers.</p>
-  </div>
-</a>
+<p>B.Tech → CS, ECE, EEE</p>
+<p>Jobs: Software Engineer, Data Scientist</p>
+<p>Salary: ₹6L - ₹25L</p>
+<Link to="/mpc">
+<button>Explore</button>
+</Link>
+</motion.div>
 
-<a href="/bipc">
-  <div className="path-card">
-    <h3>BiPC</h3>
-    <p>Medical, Pharmacy, Biotechnology careers.</p>
-  </div>
-</a>
+<motion.div className="career-card">
+  <h3>BiPC</h3>
+  <p>MBBS, Pharmacy, Nursing</p>
+  <p>Jobs: Doctor, Pharmacist</p>
+  <p>Salary: ₹8L - ₹40L</p>
+  <Link to="/bipc">
+    <button>Explore</button>
+  </Link>
+</motion.div>
 
-<a href="/cec">
-  <div className="path-card">
-    <h3>CEC</h3>
-    <p>Commerce, Business, Management careers.</p>
-  </div>
-</a>
+<motion.div className="career-card">
+  <h3>CEC</h3>
+  <p>B.Com, CA, CS</p>
+  <p>Jobs: Accountant, Auditor</p>
+  <p>Salary: ₹4L - ₹15L</p>
+  <Link to="/cec">
+    <button>Explore</button>
+  </Link>
+</motion.div>
 
-<a href="/mec">
-  <div className="path-card">
-    <h3>MEC</h3>
-    <p>Economics, Finance, Analytics careers.</p>
-  </div>
-</a>
-
-<a href="/hec">
-  <div className="path-card">
-    <h3>HEC</h3>
-    <p>Humanities, Law, Civil services careers.</p>
-  </div>
-</a>
-
-<a href="/professional">
-  <div className="path-card">
-    <h3>Professional Paths</h3>
-    <p>Upskilling, career switching and modern jobs.</p>
-  </div>
-</a>
-
-      </div>
-    </div>
-  );
+<motion.div className="career-card">
+  <h3>MEC</h3>
+  <p>Economics, Business Analytics</p>
+  <p>Jobs: Economist, Analyst</p>
+  <p>Salary: ₹5L - ₹18L</p>
+  <Link to="/mec">
+    <button>Explore</button>
+  </Link>
+</motion.div>
+</div>
+</div>
+)
 }
-
 export default CareerPaths;

@@ -1,27 +1,27 @@
 require("dotenv").config();
-const mongoose = require("mongoose");
+const cors = require("cors");
 const express = require("express");
-const User = require("./models/User");
+const mongoose = require("mongoose");
+const profileRoutes = require("./routes/profileRoutes");
+const authRoutes = require("./routes/authRoutes");
 const app = express();
-
-const MONGO_URI = process.env.MONGO_URI;
+app.use(cors());
 
 // Middleware
 app.use(express.json());
 
 // Routes
-const testRoutes = require("./routes/testRoutes");
-const authRoutes = require("./routes/authRoutes");
-app.use("/api", testRoutes);
 app.use("/api/auth", authRoutes);
+app.use("/api", profileRoutes);
 
-// Connect DB then start server
+// MongoDB Connection
+const MONGO_URI = process.env.MONGO_URI;
+
 mongoose
   .connect(MONGO_URI)
   .then(() => {
     console.log("✅ MongoDB Connected");
 
-    // Start server ONLY after DB connects
     const PORT = 5000;
 
     app.listen(PORT, () => {
