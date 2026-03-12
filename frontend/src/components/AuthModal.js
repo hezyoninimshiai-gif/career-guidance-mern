@@ -6,7 +6,7 @@ function AuthModal({ closeModal }) {
 const [name, setName] = useState("");
 const [email, setEmail] = useState("");
 const [password, setPassword] = useState("");
-
+const [isLogin, setIsLogin] = React.useState(false);
 //Submit function handleRegister
 const handleRegister = async (e) => {
   e.preventDefault();
@@ -27,6 +27,25 @@ const handleRegister = async (e) => {
       console.error(error.response?.data || error.message);
       alert("Registration failed");
     }
+};
+const handleLogin = async (e) => {
+
+  e.preventDefault();
+
+  try {
+    const res = await axios.post(
+      "http://localhost:5000/api/auth/login",
+      { email, password }
+    );
+    localStorage.setItem("token", res.data.token);
+    alert("Login successful");
+    closeModal();
+    window.location.reload();
+  } catch (error) {
+    alert("Login failed");
+
+  }
+
 };
 //UI
   return (
@@ -55,17 +74,18 @@ const handleRegister = async (e) => {
         }}
         onClick={(e) => e.stopPropagation()} // prevent closing when clicking inside
       >
-        <h2>Create an Account</h2>
-        <p>Register to unlock personalized career guidance.</p>
+        <h2>{isLogin ? "Login" : "Create an Account"}</h2>
 
-    <form onSubmit={handleRegister}>  
-            <input
-            type="text"
-            placeholder="Name"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            style={{ display: "block", margin: "10px auto", padding: "8px", width: "90%" }}
-          />
+        <form onSubmit={isLogin ? handleLogin : handleRegister}>     
+               {!isLogin && (
+                <input
+                type="text"
+                placeholder="Name"
+                value={name}
+                onChange={(e)=>setName(e.target.value)}
+                required
+                />
+             )}
 
         <input
           type="email"
@@ -83,13 +103,14 @@ const handleRegister = async (e) => {
           style={{ display: "block", margin: "10px auto", padding: "8px", width: "90%" }}
         />
 
-        <button type="submit" style={{ marginTop: "10px" }}>
-          Register
+        <button type="submit"
+         style={{ marginTop: "10px" }}>
+          {isLogin ? "Login" : "Register"}
         </button>
-
-        <button type="button" onClick={closeModal} style={{ marginLeft: "10px" }}>
-          Close
-        </button>
+        <p style={{ marginTop: "10px", cursor: "pointer" }}
+        onClick={()=>setIsLogin(!isLogin)}>
+        {isLogin ? "Create new account" : "Already have an account? Login"}
+        </p>
        </form>
       </div>
     </div>
