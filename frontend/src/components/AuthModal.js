@@ -2,54 +2,57 @@ import React, { useState } from "react";
 import axios from "axios";
 
 function AuthModal({ closeModal }) {
-  //State
-const [name, setName] = useState("");
-const [email, setEmail] = useState("");
-const [password, setPassword] = useState("");
-const [isLogin, setIsLogin] = React.useState(false);
-//Submit function handleRegister
-const handleRegister = async (e) => {
-  e.preventDefault();
+
+  const [isLogin, setIsLogin] = useState(false);
+
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleRegister = async (e) => {
+    e.preventDefault();
 
     try {
-      const res = await axios.post("http://localhost:5000/api/auth/register",
-        {
+
+      const response = await axios.post("http://localhost:5000/api/auth/register", {
         name,
         email,
         password
       });
-      console.log("User registered:", res.data);
-      localStorage.setItem("token", res.data.token);
-      alert("Registration successful!");
 
-      closeModal(); // close modal after success
+      alert("Registration successful");
+
+      setIsLogin(true);
+
     } catch (error) {
-      console.error(error.response?.data || error.message);
       alert("Registration failed");
     }
-};
-const handleLogin = async (e) => {
+  };
 
-  e.preventDefault();
+  const handleLogin = async (e) => {
+    e.preventDefault();
 
-  try {
-    const res = await axios.post(
-      "http://localhost:5000/api/auth/login",
-      { email, password }
-    );
-    localStorage.setItem("token", res.data.token)
-    localStorage.setItem("user", JSON.stringify(res.data.user))
-    localStorage.setItem("token", res.data.token);
-    alert("Login successful");
-    closeModal();
-    window.location.reload();
-  } catch (error) {
-    alert("Login failed");
+    try {
 
-  }
+      const response = await axios.post("http://localhost:5000/api/auth/login", {
+        email,
+        password
+      });
 
-};
-//UI
+      localStorage.setItem("token", response.data.token);
+      localStorage.setItem("user", JSON.stringify(response.data.user));
+
+      alert("Login successful");
+
+      closeModal();
+
+      window.location.reload();
+
+    } catch (error) {
+      alert("Login failed");
+    }
+  };
+
   return (
     <div
       style={{
@@ -61,60 +64,99 @@ const handleLogin = async (e) => {
         background: "rgba(0,0,0,0.4)",
         display: "flex",
         justifyContent: "center",
-        alignItems: "center",
+        alignItems: "center"
       }}
-      onClick={closeModal} // clicking outside closes modal
+      onClick={closeModal}
     >
+
       <div
         style={{
-          background: "rgba(255,255,255,0.9)",
-          backdropFilter: "blur(10px)",
+          background: "white",
           padding: "30px",
           borderRadius: "10px",
-          minWidth: "300px",
+          minWidth: "320px",
           textAlign: "center",
+          position: "relative"
         }}
-        onClick={(e) => e.stopPropagation()} // prevent closing when clicking inside
+        onClick={(e) => e.stopPropagation()}
       >
+
+        {/* CLOSE BUTTON */}
+        <button
+          onClick={(e) => {
+          e.stopPropagation();
+          closeModal();
+        }}
+          style={{
+            position: "absolute",
+            top: "8px",
+            right: "8px",
+            width: "35px",
+            height: "30px",
+            borderRadius: "50%",
+            border: "none",
+            backgroundColor: "#dc2929",
+            color: "#f0e7e7",
+            fontSize: "20px",
+            fontWeight: "bold",
+            cursor: "pointer",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center"
+          }}
+        >
+          X
+        </button>
+
         <h2>{isLogin ? "Login" : "Create an Account"}</h2>
 
-        <form onSubmit={isLogin ? handleLogin : handleRegister}>     
-               {!isLogin && (
-                <input
-                type="text"
-                placeholder="Name"
-                value={name}
-                onChange={(e)=>setName(e.target.value)}
-                required
-                />
-             )}
+        <form onSubmit={isLogin ? handleLogin : handleRegister}>
 
-        <input
-          type="email"
-          placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          style={{ display: "block", margin: "10px auto", padding: "8px", width: "90%" }}
-        />
+          {!isLogin && (
+            <input
+              type="text"
+              placeholder="Name"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              required
+              style={{ display: "block", margin: "10px auto", padding: "8px" }}
+            />
+          )}
 
-              <input
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          style={{ display: "block", margin: "10px auto", padding: "8px", width: "90%" }}
-        />
+          <input
+            type="email"
+            placeholder="Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+            style={{ display: "block", margin: "10px auto", padding: "8px" }}
+          />
 
-        <button type="submit"
-         style={{ marginTop: "10px" }}>
-          {isLogin ? "Login" : "Register"}
-        </button>
-        <p style={{ marginTop: "10px", cursor: "pointer" }}
-        onClick={()=>setIsLogin(!isLogin)}>
-        {isLogin ? "Create new account" : "Already have an account? Login"}
+          <input
+            type="password"
+            placeholder="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+            style={{ display: "block", margin: "10px auto", padding: "8px" }}
+          />
+
+          <button type="submit" style={{ marginTop: "10px" }}>
+            {isLogin ? "Login" : "Register"}
+          </button>
+
+        </form>
+
+        <p style={{ marginTop: "15px" }}>
+          {isLogin ? "Don't have an account?" : "Already have an account?"}
         </p>
-       </form>
+
+        <button onClick={() => setIsLogin(!isLogin)}>
+          {isLogin ? "Register here" : "Login here"}
+        </button>
+
       </div>
+
     </div>
   );
 }
