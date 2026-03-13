@@ -1,30 +1,43 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 
 function Navbar() {
-  return (
- <div style={{
-    display:"flex",
-    justifyContent:"space-between",
-    alignItems:"center",
-    padding:"15px 40px",
-    background:"#1f2a44",
-    color:"white",
-    position:"sticky",
-    top:"0"
-}}>
-      <h2>CareerGuide</h2>
 
-      <div>
-        <a href="/" style={{color:"white",marginRight:"20px"}}>Home</a>
-        <a href="/about" style={{color:"white",marginRight:"20px"}}>About</a>
-        <a href="/contact" style={{color:"white"}}>Contact</a>
-      </div>
-      <div className="auth-buttons">
-        <button>Login</button>
-        <button>Register</button>
-        </div>
-    </div>
-    
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    const storedUser = localStorage.getItem("user");
+
+    if (storedUser) {
+      setUser(JSON.parse(storedUser));
+    }
+  }, []);
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+    window.location.reload();
+  };
+
+  return (
+    <nav style={{ padding: "15px", background: "#333", color: "white" }}>
+      
+      <span style={{ marginRight: "20px" }}>Career Guidance</span>
+
+      {user ? (
+        <>
+          <span style={{ marginRight: "15px" }}>
+            Welcome {user.name}
+          </span>
+
+          <button onClick={handleLogout}>
+            Logout
+          </button>
+        </>
+      ) : (
+        <span>Guest</span>
+      )}
+
+    </nav>
   );
 }
 

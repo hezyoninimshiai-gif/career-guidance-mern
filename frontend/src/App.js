@@ -22,36 +22,24 @@ import AuthModal from "./components/AuthModal";
 
 function Home() {
 
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
 
-    // Check token
     const token = localStorage.getItem("token");
 
-    if (token) {
-      setIsLoggedIn(true);
-    }
-
-    // Track visits
-    let visits = localStorage.getItem("visits");
-    visits = visits ? parseInt(visits) + 1 : 1;
-
-    localStorage.setItem("visits", visits);
-
-    // Show modal from 2nd visit
-    if (visits >= 2) {
+    // Only show modal if user is NOT logged in
+    if (!token) {
 
       const timer = setTimeout(() => {
         setShowModal(true);
-      }, 5000); // 2 minutes
+      }, 5000); // 5 seconds
 
       return () => clearTimeout(timer);
+
     }
 
   }, []);
-
 
   return (
     <>
@@ -59,10 +47,10 @@ function Home() {
       <CareerPaths />
       <Opportunities />
 
-      {/* Show modal only if NOT logged in */}
-      {!isLoggedIn && showModal && (
+      {showModal && (
         <AuthModal closeModal={() => setShowModal(false)} />
       )}
+
     </>
   );
 }
