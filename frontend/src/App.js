@@ -17,6 +17,7 @@ import MECPage from "./pages/MECPage";
 import HECPage from "./pages/HECPage";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
+import CareerDetail from "./pages/CareerDetail";
 
 function Home({ openModal }) {
   const [showModal, setShowModal] = useState(false);
@@ -58,6 +59,7 @@ function App() {
 
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/career/:id" element={<CareerDetail />} />
 
         <Route
           path="/mpc"

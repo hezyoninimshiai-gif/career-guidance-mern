@@ -3,21 +3,30 @@ import "../App.css";
 import { Link } from "react-router-dom";
 import "./CareerPaths.css";
 import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 
 function CareerPaths(){
 
+const navigate = useNavigate();
 return(
 <div className="career-container">
 <h2>Explore Career Paths</h2>
 <div className="career-grid">
-<motion.div className="career-card" whileHover={{scale:1.05}}>
-    <h3>MPC</h3>
+
+<motion.div  className="career-card"
+  style={{ cursor: "pointer" }}
+  onClick={() => navigate("/mpc")}
+>
+  <h3>MPC</h3>
 <p>B.Tech → CS, ECE, EEE</p>
 <p>Jobs: Software Engineer, Data Scientist</p>
 <p>Salary: ₹6L - ₹25L</p>
 <Link to="/mpc">
-<button>Explore</button>
-</Link>
+<button
+  className="btn btn-success"
+>
+  Explore
+</button></Link>
 </motion.div>
 
 <motion.div className="career-card">
@@ -26,8 +35,8 @@ return(
   <p>Jobs: Doctor, Pharmacist</p>
   <p>Salary: ₹8L - ₹40L</p>
   <Link to="/bipc">
-    <button>Explore</button>
-  </Link>
+  <button className="btn btn-success"> Explore </button>
+</Link>
 </motion.div>
 
 <motion.div className="career-card">
@@ -36,7 +45,7 @@ return(
   <p>Jobs: Accountant, Auditor</p>
   <p>Salary: ₹4L - ₹15L</p>
   <Link to="/cec">
-    <button>Explore</button>
+<button className="btn btn-success"> Explore </button>
   </Link>
 </motion.div>
 
@@ -46,7 +55,7 @@ return(
   <p>Jobs: Economist, Analyst</p>
   <p>Salary: ₹5L - ₹18L</p>
   <Link to="/mec">
-    <button>Explore</button>
+<button className="btn btn-success"> Explore </button>
   </Link>
 </motion.div>
 </div>
